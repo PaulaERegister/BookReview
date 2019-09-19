@@ -43,12 +43,26 @@ public class BookTable {
             e.printStackTrace();
         }
         String sql = createBookInsertSQL(books);
+
         Statement stmt = conn.createStatement();
         stmt.execute(sql);
     }
 
     public static String createBookInsertSQL(ArrayList<Book> books) {
-        return null;
+        StringBuilder sb = new StringBuilder();
+        sb.append("INSERT INTO book(ISBN, TITLE, AUTHOR, REVIEW, PAGES, RATING) VALUES");
+        for (int i = 0; i < books.size(); i++) {
+            Book b = books.get(i);
+            sb.append(String.format("(%d,\'%s\',\'%s\',\'%s\',\'%d\',\'%f\')", b.getIsbn(), b.getTitle(), b.getAuthor(), b.getReview(), b.getPages(), b.getRating()));
+//            sb.append(String.format("(%d, %s, %s, %s, %d, %f)", b.getIsbn(), b.getTitle(), b.getAuthor(), b.getReview(), b.getPages(), b.getRating()));
+            if (i != books.size() - 1 ) {
+                sb.append(",");
+            } else {
+                sb.append(";");
+            }
+        }
+        System.out.println(sb.toString());
+        return sb.toString();
     }
 
     public static void addBook(Connection conn,
@@ -57,7 +71,7 @@ public class BookTable {
                                  String author,
                                  String review,
                                  int pages,
-                                 float rating) {
+                                 double rating) {
         String query = String.format("INSERT INTO book " +
                         "VALUES(%d,\'%s\',\'%s\',\'%s\',\'%d\',\'%f\');",
                 isbn, title, author, review, pages, rating);

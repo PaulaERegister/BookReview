@@ -65,15 +65,14 @@ public class Main {
     }
 
     private void initializeTables(){
-        System.out.println("Creating");
-        BookTable.createBookTable(conn);
-        BookTable.addBook(conn, 1, "test", "author", "review", 1, 3.00f);
-        BookTable.printBookTable(conn);
-//        try {
-//            BookTable.createBookTable(conn);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            BookTable.createBookTable(conn);
+            BookTable.addBook(conn, 2, "test", "author", "review", 1, 3.00f);
+            BookTable.populateBookTableFromCSV(conn, "./src/csv/Books.csv");
+            BookTable.printBookTable(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {

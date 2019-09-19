@@ -8,9 +8,9 @@ public class Book {
     private int isbn;
     private int pages;
 
-    private float rating;
+    private double rating;
 
-    public Book(String title, String author, String review, int pages, int isbn,  float rating) {
+    public Book(int isbn, String title, String author, String review, int pages, double rating) {
         this.title = title;
         this.author = author;
         this.review = review;
@@ -24,14 +24,15 @@ public class Book {
      * @param data Array of String objects from CSV file
      */
     public Book(String[] data) {
-        this(data[0], data[1], data[2], Integer.parseInt(data[3]), Integer.parseInt(data[4]), Float.parseFloat(data[5]));
+        this(Integer.parseInt(data[0]), data[1], data[2], data[3], Integer.parseInt(data[4]), Double.parseDouble(data[5]));
+
     }
 
-    public float getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(float rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 
